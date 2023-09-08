@@ -22,8 +22,16 @@ pipeline {
       steps {
         withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
           sh "printenv"
-          sh "docker build -t shaijal/demos:latest ."
-          sh "docker push shaijal/demos:latest"
+          sh 'docker build -t shaijal/demos:""$GIT_COMMIT"" .'
+          sh 'docker push shaijal/demos:""$GIT_COMMIT""'
+        }
+      }
+    }
+    stage('k8s-ns') {
+      steps {
+        withKubeConfig([ credentialsId: "kubeconfig" ]) {
+          sh "sed -i 's#replace#shaijal/demos:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+          sh "kubectl apply -f k8s_deployment_service.yaml"
         }
       }
     }
