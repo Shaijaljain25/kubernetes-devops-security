@@ -21,7 +21,7 @@ pipeline {
     stage('Docker Build and Push') {
       steps {
         sh "printenv"
-        sh "docker build -t shaijal/demos:latest"
+        sh "docker build -t shaijal/demos:latest ."
         sh "docker push shaijal/demos:latest"
       }
     }
