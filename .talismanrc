@@ -1,4 +1,5 @@
 fileignoreconfig:
 - filename: password.txt
   checksum: 12225ef60abbaf2dd12d53e48584a26ffcfa0a5815be48029f8382efac27b6db
-
+- filename: Jenkinsfile
+  checksum: 979a5521cb9c123663827630cf987515074866b8e29482bf6c7c05ce7ee4f50e

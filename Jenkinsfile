@@ -18,6 +18,12 @@ pipeline {
         }
       }
     }
+    stage('SonarQube Analysis') {
+      def mvn = tool 'MavenTool';
+      withSonarQubeEnv() {
+        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric -Dsonar.projectName='numeric'"
+      }
+    }
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([ credentialsId: "DockerHub", url: "" ]) {
