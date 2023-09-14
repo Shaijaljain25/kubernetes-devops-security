@@ -19,10 +19,12 @@ pipeline {
       }
     }
     stage('SonarQube Analysis') {
-      // def mvn = tool 'MavenTool';
-      // withSonarQubeEnv() {
       steps {
-        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=numeric -Dsonar.projectName='numeric'"
+        sh "mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=numeric2 \
+          -Dsonar.projectName='numeric2' \
+          -Dsonar.host.url=http://shaijal.southindia.cloudapp.azure.com:31321 \
+          -Dsonar.token=sqp_5f46910a4fa98338735f20de167b221b5529b723"
       }
     }
     stage('Docker Build and Push') {
